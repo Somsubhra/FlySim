@@ -12,7 +12,7 @@ class FliSim(ShowBase):
 
 		self.plane = self.loader.loadModel("./models/plane/boeing707")
 		self.plane.setScale(0.07, 0.07, 0.07)
-		self.plane.setPos(0, 7, 3.0)
+		self.plane.setPos(0, 7, 1.5)
 		self.plane.reparentTo(self.render)
 
 		self.environ = self.loader.loadModel("./models/sky/skysphere")
@@ -29,8 +29,8 @@ class FliSim(ShowBase):
 			self.i = -16
 
 		self.i = self.i+0.1
-		self.camera.setPos(0, self.i, 5)
-		self.plane.setPos(0, self.i+12, 3.0)
+		self.camera.setPos(0, self.i, 3.5)
+		self.plane.setPos(0, self.i+12, 1.5)
 		print(str(self.i))
 		return Task.cont
 
