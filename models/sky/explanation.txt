@@ -1,0 +1,6 @@
+
+The egg file contains a reference to 'SkyTexture.jpg'
+
+You can edit the egg file so it refers to one of the other
+bitmaps instead.  Or, you can use your own bitmap.
+

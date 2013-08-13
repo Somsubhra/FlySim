@@ -8,7 +8,7 @@ class FliSim(ShowBase):
 	def __init__(self):
 		ShowBase.__init__(self)
 		self.setBackgroundColor(0, 0, 0)
-		self.environ = self.loader.loadModel("./models/sky/cloudysky")
+		self.environ = self.loader.loadModel("./models/sky/skysphere")
 		self.i = -16
 		self.environ.reparentTo(self.render)
 
