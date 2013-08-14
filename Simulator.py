@@ -7,7 +7,7 @@ from direct.interval.FunctionInterval import Func
 import sys
 
 TUNNEL_SEGMENT_LENGTH = 50           
-TUNNEL_TIME = 2
+TUNNEL_TIME = 25
 
 class World(DirectObject):
 
