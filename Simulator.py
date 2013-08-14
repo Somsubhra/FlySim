@@ -13,9 +13,11 @@ class World(DirectObject):
 
   def __init__(self):
 
+  	self.scale = 0.04
+
   	self.plane = loader.loadModel('./models/plane/boeing707')
   	self.plane.reparentTo(render)
-  	self.plane.setScale(0.04, 0.04, 0.04)
+  	self.plane.setScale(self.scale, self.scale, self.scale)
   	
   	self.xPos = 0
   	self.plane.setPosHpr(self.xPos,-0.7,0,0,270,0)
@@ -38,7 +40,17 @@ class World(DirectObject):
    	self.accept('escape', sys.exit)
    	self.accept('d', self.moveRight)
    	self.accept('a', self.moveLeft)
+   	self.accept('+', self.scaleUp)
+   	self.accept('-', self.scaleDown)
     
+  def scaleUp(self):
+  	self.scale = self.scale + 0.005
+  	self.plane.setScale(self.scale, self.scale, self.scale)
+
+  def scaleDown(self):
+  	self.scale = self.scale - 0.005
+  	self.plane.setScale(self.scale, self.scale, self.scale)
+  	
   def moveRight(self):
   	self.xPos = self.xPos + 0.1
   	self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, 0)
