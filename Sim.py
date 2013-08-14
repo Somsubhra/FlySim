@@ -39,7 +39,7 @@ class World(DirectObject):
     self.tunnel = [None for i in range(4)]
     
     for x in range(4):
-      self.tunnel[x] = loader.loadModel('models/tunnel')
+      self.tunnel[x] = loader.loadModel('models/terrain/tunnel')
 
       if x == 0: self.tunnel[x].reparentTo(render)
 
