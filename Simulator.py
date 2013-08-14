@@ -8,7 +8,7 @@ class FliSim(ShowBase):
 	#self.i = 0
 	def __init__(self):
 		ShowBase.__init__(self)
-		self.setBackgroundColor(0, 0, 0)
+		self.setBackgroundColor(0, 0, 255)
 
 		self.plane = self.loader.loadModel("./models/plane/boeing707")
 		self.plane.setScale(0.07, 0.07, 0.07)
