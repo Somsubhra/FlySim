@@ -24,12 +24,12 @@ class World(DirectObject):
   	self.plane.reparentTo(render)
   	self.plane.setScale(self.scale, self.scale, self.scale)  	
   	self.xPos = 0
-  	self.plane.setPosHpr(self.xPos,-0.7,0,0,270,0)
+  	self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, 0)
 
 
   	base.disableMouse()
-   	camera.setPosHpr(0,0.5,10, 0, -100, 0) #Vary this
-   	base.setBackgroundColor(0,0.5,1)
+   	camera.setPosHpr(0, 0.5, 10, 0, -100, 0) #Vary this
+   	base.setBackgroundColor(0, 0.5, 1)
     
 # Load fog into the view
    	self.fog = Fog('distanceFog')
