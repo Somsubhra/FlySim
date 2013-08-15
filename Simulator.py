@@ -47,7 +47,12 @@ class World(DirectObject):
    	self.accept('a', self.moveLeft)
    	self.accept('+', self.scaleUp)
    	self.accept('-', self.scaleDown)
-    
+
+	try:
+	    self.ser = serial.Serial('/dev/tty.usbserial', 9600)
+    	except:
+	    print("Could not open Serial port")
+
 # Zoom into the plane
   def scaleUp(self):
   	self.scale = self.scale + 0.005
