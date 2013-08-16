@@ -51,10 +51,9 @@ class World(DirectObject):
 
     try:
       self.ser = serial.Serial('/dev/ttyUSB0', 9600)
+      taskMgr.add(self.serialTask, "serialTask")
     except:
       print("Could not open Serial port")
-
-    taskMgr.add(self.serialTask, "serialTask")
 
 # The serial task
   def serialTask(self, task):
