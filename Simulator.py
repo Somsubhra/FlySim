@@ -5,6 +5,7 @@ from direct.showbase.DirectObject import DirectObject
 from direct.interval.MetaInterval import Sequence
 from direct.interval.LerpInterval import LerpFunc
 from direct.interval.FunctionInterval import Func
+from direct.task import Task
 import sys
 import serial
 
@@ -49,9 +50,27 @@ class World(DirectObject):
     self.accept('-', self.scaleDown)
 
     try:
-      self.ser = serial.Serial('/dev/tty.usbserial', 9600)
+      self.ser = serial.Serial('/dev/ttyUSB0', 9600)
     except:
       print("Could not open Serial port")
+
+    taskMgr.add(self.serialTask, "serialTask")
+
+# The serial task
+  def serialTask(self, task):
+    reading = self.ser.readline()
+#    print reading
+    if(reading != ""):
+        try:
+	    x = float(reading)
+	    dev = (400.0 - x)/100.0
+	    print "dev:"
+	    print dev
+	    self.plane.setPosHpr(self.xPos + dev, -0.7, 0, 0, 270, 0)
+        except:
+    	    print "Couldn't pass"
+
+    return Task.cont
 
 # Zoom into the plane
   def scaleUp(self):
