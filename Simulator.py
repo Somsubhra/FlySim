@@ -11,7 +11,7 @@ import serial
 
 # Define constants 
 TUNNEL_SEGMENT_LENGTH = 50           
-TUNNEL_TIME = 25
+TUNNEL_TIME = 15
 
 # The World class
 class World(DirectObject):
@@ -50,7 +50,7 @@ class World(DirectObject):
     self.accept('-', self.scaleDown)
 
     try:
-      self.ser = serial.Serial('/dev/ttyUSB0', 9600)
+      self.ser = serial.Serial('/dev/ttyUSB3', 9600)
       taskMgr.add(self.serialTask, "serialTask")
     except:
       print("Could not open Serial port")
@@ -58,16 +58,27 @@ class World(DirectObject):
 # The serial task
   def serialTask(self, task):
     reading = self.ser.readline()
-#    print reading
+    print reading
     if(reading != ""):
         try:
-	    x = float(reading)
-	    dev = (400.0 - x)/100.0
-	    print "dev:"
-	    print dev
-	    self.plane.setPosHpr(self.xPos + dev, -0.7, 0, 0, 270, 0)
+		x = float(reading)
+		dev = (320.0 - x)
+		print "dev:"
+		print dev
+		
+		if(dev < -30):
+			self.moveLeft()
+#			self.xPos = self.xPos - 0.1
+#			self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, 0)
+		elif(dev > 30):
+			self.moveRight()
+#			self.xPos = self.xPos + 0.1
+#			self.plane.setPosHpr(self)
+#		self.plane.setPosHpr(self.xPos + dev, -0.7, 0, 0, 270, 0)
+		else:
+		    pass
         except:
-    	    print "Couldn't pass"
+    	    print "Couldn't parse"
 
     return Task.cont
 
@@ -83,12 +94,12 @@ class World(DirectObject):
   	
 # Move the plane right
   def moveRight(self):
-    self.xPos = self.xPos + 0.1
+    self.xPos = self.xPos + 0.01
     self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, 0)
 
 # Move the plane left
   def moveLeft(self):
-    self.xPos = self.xPos - 0.1
+    self.xPos = self.xPos - 0.01
     self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, 0)
   
 # The tunnel initialization function
