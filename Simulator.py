@@ -25,7 +25,8 @@ class World(DirectObject):
 		self.plane.reparentTo(render)
 		self.plane.setScale(self.scale, self.scale, self.scale)  	
 		self.xPos = 0
-		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, 0)
+		self.tilt = 0.0
+		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, self.tilt)
 
 
 		base.disableMouse()
@@ -76,11 +77,23 @@ class World(DirectObject):
 #					self.plane.setPosHpr(self)
 #				self.plane.setPosHpr(self.xPos + dev, -0.7, 0, 0, 270, 0)
 				else:
-					pass
+					self.stabilizePlane()
+					#self.tilt = 0
+					#self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, 0)
 			except:
 				print "Couldn't parse"
 
 		return Task.cont
+
+# Make the Boeing stable
+	def stabilizePlane(self):
+		if(self.tilt > 0):
+			if(self.tilt != 0.0):
+				self.tilt = self.tilt - 0.5
+		else:
+			if(self.tilt != 0.0):
+				self.tilt = self.tilt + 0.5
+		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, self.tilt)
 
 # Zoom into the plane
 	def scaleUp(self):
@@ -94,13 +107,19 @@ class World(DirectObject):
   	
 # Move the plane right
 	def moveRight(self):
+		if(self.tilt >= 15):
+			self.tilt = 15
 		self.xPos = self.xPos + 0.01
-		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, 0)
+		self.tilt = self.tilt + 0.5
+		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, self.tilt)
 
 # Move the plane left
 	def moveLeft(self):
+		if(self.tilt <= -15):
+			self.tilt = -15
+		self.tilt = self.tilt - 0.5
 		self.xPos = self.xPos - 0.01
-		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, 0)
+		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, self.tilt)
   
 # The tunnel initialization function
 	def initTunnel(self):
