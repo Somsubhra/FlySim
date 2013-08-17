@@ -67,11 +67,11 @@ class World(DirectObject):
 				print "dev:"
 				print dev
 		
-				if(dev < -30):
+				if(dev < -25):
 					self.moveLeft()
 #					self.xPos = self.xPos - 0.1
 #					self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, 0)
-				elif(dev > 30):
+				elif(dev > 25):
 					self.moveRight()
 #					self.xPos = self.xPos + 0.1
 #					self.plane.setPosHpr(self)
@@ -107,16 +107,16 @@ class World(DirectObject):
   	
 # Move the plane right
 	def moveRight(self):
-		if(self.tilt >= 15):
-			self.tilt = 15
+		if(self.tilt >= 45):
+			self.tilt = 45
 		self.xPos = self.xPos + 0.01
 		self.tilt = self.tilt + 0.5
 		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, self.tilt)
 
 # Move the plane left
 	def moveLeft(self):
-		if(self.tilt <= -15):
-			self.tilt = -15
+		if(self.tilt <= -45):
+			self.tilt = -45
 		self.tilt = self.tilt - 0.5
 		self.xPos = self.xPos - 0.01
 		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, self.tilt)
