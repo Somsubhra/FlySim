@@ -50,7 +50,7 @@ class World(DirectObject):
 		self.accept('-', self.scaleDown)
 
 		try:
-			self.ser = serial.Serial('/dev/ttyUSB3', 9600)
+			self.ser = serial.Serial('/dev/ttyUSB0', 9600)
 			taskMgr.add(self.serialTask, "serialTask")
 		except:
 			print("Could not open Serial port")
