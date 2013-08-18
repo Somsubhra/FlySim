@@ -21,6 +21,10 @@ class World(DirectObject):
 
 # Load the Boeing707
 		self.scale = 0.04
+		self.xPos = 0.0
+		self.yPos = 0.0
+		self.tilt = 0.0
+		
 		self.plane = loader.loadModel('./models/plane/boeing707')
 		self.plane.reparentTo(render)
 		self.plane.setScale(self.scale, self.scale, self.scale)  	
@@ -63,16 +67,16 @@ class World(DirectObject):
 		if(reading != ""):
 			try:
 				if(reading[0] == 'y'):
-					y = float(reading[1:])
+					x = float(reading[1:])
 				
 				if(reading[1] == 'x'):
-					x = float(reading[1:])
+					y = float(reading[1:])
 
-				devY = (320.0 - y)
+				devX = (320.0 - x)
 		
-				if(devY < -25):
+				if(devX < -25):
 					self.moveLeft()
-				elif(devY > 25):
+				elif(devX > 25):
 					self.moveRight()
 				else:
 					self.stabilizePlane()
