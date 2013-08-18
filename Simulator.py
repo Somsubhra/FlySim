@@ -24,13 +24,14 @@ class World(DirectObject):
 		self.xPos = 0.0
 		self.yPos = 0.0
 		self.tilt = 0.0
+		self.lift = 0.0
 		
 		self.plane = loader.loadModel('./models/plane/boeing707')
 		self.plane.reparentTo(render)
 		self.plane.setScale(self.scale, self.scale, self.scale)  	
 		self.xPos = 0
 		self.tilt = 0.0
-		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, self.tilt)
+		self.plane.setPosHpr(self.xPos, -0.7 + self.yPos, 0, 0, 270 + self.lift, self.tilt)
 
 
 		base.disableMouse()
@@ -68,32 +69,51 @@ class World(DirectObject):
 			try:
 				if(reading[0] == 'y'):
 					x = float(reading[1:])
-				
-				if(reading[1] == 'x'):
-					y = float(reading[1:])
+					devX = (320.0 - x)
 
-				devX = (320.0 - x)
-		
-				if(devX < -25):
-					self.moveLeft()
-				elif(devX > 25):
-					self.moveRight()
-				else:
-					self.stabilizePlane()
+					if(devX < -25):
+						self.moveLeft()
+					elif(devX > 25):
+						self.moveRight()
+					else:
+						self.stabilizeTilt()
+				
+				if(reading[0] == 'x'):
+					y = float(reading[1:])
+					devY = (260.0 - y)
+
+					if(devY < -25):
+						self.liftUp()
+					elif(devY > 25):
+						self.liftDown()
+					else:
+						self.stabilizeLift()
+					
 			except:
 				pass
 
 		return Task.cont
 
-# Make the Boeing stable
-	def stabilizePlane(self):
+# Make the Boeing stable on the tilt
+	def stabilizeTilt(self):
 		if(self.tilt > 0):
 			if(self.tilt != 0.0):
 				self.tilt = self.tilt - 0.25
 		else:
 			if(self.tilt != 0.0):
 				self.tilt = self.tilt + 0.25
-		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, self.tilt)
+		self.plane.setPosHpr(self.xPos, -0.7 + self.yPos, 0, 0, 270 + self.lift, self.tilt)
+		
+# Make the Boeing stable on the lift
+	def stabilizeLift(self):
+		if(self.lift > 0):
+			if(self.lift != 0.0):
+				self.lift = self.lift - 0.25
+		else:
+			if(self.lift != 0.0):
+				self.lift = self.lift + 0.25
+				
+		self.lift.setPosHpr(self.xPos, -0.7 + self.yPos, 0, 0, 270 + self.lift, self.tilt)
 
 # Zoom into the plane
 	def scaleUp(self):
@@ -111,7 +131,7 @@ class World(DirectObject):
 			self.tilt = 30
 		self.xPos = self.xPos + 0.01
 		self.tilt = self.tilt + 0.25
-		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, self.tilt)
+		self.plane.setPosHpr(self.xPos, -0.7 + self.yPos, 0, 0, 270 + self.lift, self.tilt)
 
 # Move the plane left
 	def moveLeft(self):
@@ -119,8 +139,26 @@ class World(DirectObject):
 			self.tilt = -30
 		self.tilt = self.tilt - 0.25
 		self.xPos = self.xPos - 0.01
-		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, self.tilt)
-  
+		self.plane.setPosHpr(self.xPos, -0.7 + self.yPos, 0, 0, 270 + self.lift, self.tilt)
+
+# Lift the plane up
+	def liftUp(self):
+		if(self.lift >= 20):
+			self.lift = 20
+		self.lift = self.lift + 0.25
+		self.yPos = self.yPos + 0.01
+		self.plane.setPosHpr(self.xPos, -0.7 + self.yPos, 0, 0, 270 + self.lift, self.tilt)
+		
+# Lift the plane down
+	def liftDown(self):
+		if(self.lift <= -20):
+			self.lift = -20
+
+		self.lift = self.lift - 0.25
+		self.yPos = self.yPos - 0.01
+		self.plane.setPosHpr(self.xPos, -0.7 + self.yPos, 0, 0, 270 + self.lift, self.tilt)
+		
+		
 # The tunnel initialization function
 	def initTunnel(self):
 		self.tunnel = [None for i in range(4)]
