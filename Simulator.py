@@ -59,29 +59,25 @@ class World(DirectObject):
 # The serial task
 	def serialTask(self, task):
 		reading = self.ser.readline()
-		print reading
+
 		if(reading != ""):
 			try:
-				x = float(reading)
-				dev = (320.0 - x)
-				print "dev:"
-				print dev
+				if(reading[0] == 'y'):
+					y = float(reading[1:])
+				
+				if(reading[1] == 'x'):
+					x = float(reading[1:])
+
+				devY = (320.0 - y)
 		
-				if(dev < -25):
+				if(devY < -25):
 					self.moveLeft()
-#					self.xPos = self.xPos - 0.1
-#					self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, 0)
-				elif(dev > 25):
+				elif(devY > 25):
 					self.moveRight()
-#					self.xPos = self.xPos + 0.1
-#					self.plane.setPosHpr(self)
-#				self.plane.setPosHpr(self.xPos + dev, -0.7, 0, 0, 270, 0)
 				else:
 					self.stabilizePlane()
-					#self.tilt = 0
-					#self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, 0)
 			except:
-				print "Couldn't parse"
+				pass
 
 		return Task.cont
 
