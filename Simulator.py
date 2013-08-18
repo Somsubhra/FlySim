@@ -12,6 +12,10 @@ import serial
 # Define constants 
 TUNNEL_SEGMENT_LENGTH = 50           
 TUNNEL_TIME = 15
+X_STABLE = 320.0
+Y_STABLE = 260.0
+MAX_TILT = 30
+MAX_LIFT = 20
 
 # The World class
 class World(DirectObject):
@@ -69,7 +73,7 @@ class World(DirectObject):
 			try:
 				if(reading[0] == 'y'):
 					x = float(reading[1:])
-					devX = (320.0 - x)
+					devX = (X_STABLE - x)
 
 					if(devX < -25):
 						self.moveLeft()
@@ -80,7 +84,7 @@ class World(DirectObject):
 				
 				if(reading[0] == 'x'):
 					y = float(reading[1:])
-					devY = (260.0 - y)
+					devY = (Y_STABLE - y)
 
 					if(devY < -25):
 						self.liftDown()
@@ -127,32 +131,32 @@ class World(DirectObject):
   	
 # Move the plane right
 	def moveRight(self):
-		if(self.tilt >= 30):
-			self.tilt = 30
+		if(self.tilt >= MAX_TILT):
+			self.tilt = MAX_TILT
 		self.xPos = self.xPos + 0.01
 		self.tilt = self.tilt + 0.25
 		self.plane.setPosHpr(self.xPos, -0.7 + self.yPos, 0, 0, 270 + self.lift, self.tilt)
 
 # Move the plane left
 	def moveLeft(self):
-		if(self.tilt <= -30):
-			self.tilt = -30
+		if(self.tilt <= -MAX_TILT):
+			self.tilt = -MAX_TILT
 		self.tilt = self.tilt - 0.25
 		self.xPos = self.xPos - 0.01
 		self.plane.setPosHpr(self.xPos, -0.7 + self.yPos, 0, 0, 270 + self.lift, self.tilt)
 
 # Lift the plane up
 	def liftUp(self):
-		if(self.lift >= 20):
-			self.lift = 20
+		if(self.lift >= MAX_LIFT):
+			self.lift = MAX_LIFT
 		self.lift = self.lift + 0.25
 		self.yPos = self.yPos + 0.01
 		self.plane.setPosHpr(self.xPos, -0.7 + self.yPos, 0, 0, 270 + self.lift, self.tilt)
 		
 # Lift the plane down
 	def liftDown(self):
-		if(self.lift <= -20):
-			self.lift = -20
+		if(self.lift <= -MAX_LIFT):
+			self.lift = -MAX_LIFT
 
 		self.lift = self.lift - 0.25
 		self.yPos = self.yPos - 0.01
