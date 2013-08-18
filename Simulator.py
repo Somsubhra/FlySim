@@ -83,9 +83,9 @@ class World(DirectObject):
 					devY = (260.0 - y)
 
 					if(devY < -25):
-						self.liftUp()
-					elif(devY > 25):
 						self.liftDown()
+					elif(devY > 25):
+						self.liftUp()
 					else:
 						self.stabilizeLift()
 					
