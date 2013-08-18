@@ -43,9 +43,7 @@ class World(DirectObject):
 		
 		self.plane = loader.loadModel('./models/plane/boeing707')
 		self.plane.reparentTo(render)
-		self.plane.setScale(self.scale, self.scale, self.scale)  	
-		self.xPos = 0
-		self.tilt = 0.0
+		self.plane.setScale(self.scale, self.scale, self.scale)
 		self.plane.setPosHpr(self.xPos, -0.7 + self.yPos, 0, 0, 270 + self.lift, self.tilt)
     
 # Load fog into the view
