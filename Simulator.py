@@ -89,10 +89,10 @@ class World(DirectObject):
 	def stabilizePlane(self):
 		if(self.tilt > 0):
 			if(self.tilt != 0.0):
-				self.tilt = self.tilt - 0.5
+				self.tilt = self.tilt - 0.25
 		else:
 			if(self.tilt != 0.0):
-				self.tilt = self.tilt + 0.5
+				self.tilt = self.tilt + 0.25
 		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, self.tilt)
 
 # Zoom into the plane
@@ -107,17 +107,17 @@ class World(DirectObject):
   	
 # Move the plane right
 	def moveRight(self):
-		if(self.tilt >= 45):
-			self.tilt = 45
+		if(self.tilt >= 30):
+			self.tilt = 30
 		self.xPos = self.xPos + 0.01
-		self.tilt = self.tilt + 0.5
+		self.tilt = self.tilt + 0.25
 		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, self.tilt)
 
 # Move the plane left
 	def moveLeft(self):
-		if(self.tilt <= -45):
-			self.tilt = -45
-		self.tilt = self.tilt - 0.5
+		if(self.tilt <= -30):
+			self.tilt = -30
+		self.tilt = self.tilt - 0.25
 		self.xPos = self.xPos - 0.01
 		self.plane.setPosHpr(self.xPos, -0.7, 0, 0, 270, self.tilt)
   
