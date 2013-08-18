@@ -1,4 +1,11 @@
 # Import all libraries
+import sys
+import serial
+
+from pandac.PandaModules import *
+loadPrcFileData("", "window-title FlySim: The Flight Simulator")
+loadPrcFileData("", "fullscreen 0")
+
 import direct.directbase.DirectStart 
 from panda3d.core import Fog
 from direct.showbase.DirectObject import DirectObject
@@ -6,8 +13,6 @@ from direct.interval.MetaInterval import Sequence
 from direct.interval.LerpInterval import LerpFunc
 from direct.interval.FunctionInterval import Func
 from direct.task import Task
-import sys
-import serial
 
 # Define constants 
 TUNNEL_SEGMENT_LENGTH = 50           
@@ -23,6 +28,12 @@ class World(DirectObject):
 # Initialize the world class
 	def __init__(self):
 
+
+# A few window settings
+		base.disableMouse()
+		camera.setPosHpr(0, 0.5, 10, 0, -100, 0) #Vary this
+		base.setBackgroundColor(0, 0.5, 1)
+		
 # Load the Boeing707
 		self.scale = 0.04
 		self.xPos = 0.0
@@ -36,11 +47,6 @@ class World(DirectObject):
 		self.xPos = 0
 		self.tilt = 0.0
 		self.plane.setPosHpr(self.xPos, -0.7 + self.yPos, 0, 0, 270 + self.lift, self.tilt)
-
-
-		base.disableMouse()
-		camera.setPosHpr(0, 0.5, 10, 0, -100, 0) #Vary this
-		base.setBackgroundColor(0, 0.5, 1)
     
 # Load fog into the view
 		self.fog = Fog('distanceFog')
