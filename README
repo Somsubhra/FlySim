@@ -3,4 +3,14 @@
 A flight simulator that would be connected
 to an Arduino and accelerometer for control.
 
+Requirements:-
+1. Arduino software
+2. Python 
+3. Panda3D
+
+Instructions:-
+1. Upload the arduino.ino sketch to the arduino board.
+2. Connect x and y pin of accelerometer to pin A0 and A1.
+3. Run 'ppython Simulator.py' without quotes.
+
 
