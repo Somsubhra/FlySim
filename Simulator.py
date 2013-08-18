@@ -54,8 +54,6 @@ class World(DirectObject):
 
 # Key mappings
 		self.accept('escape', sys.exit)
-		self.accept('d', self.moveRight)
-		self.accept('a', self.moveLeft)
 		self.accept('+', self.scaleUp)
 		self.accept('-', self.scaleDown)
 
