@@ -182,7 +182,7 @@ class World(DirectObject):
 
 		self.tunnel[0].reparentTo(render)
 
-		self.tunnel[0].setScale(.355, .355, .505)
+		self.tunnel[0].setScale(.455, .455, .605)
 
 		self.tunnel[3].reparentTo(self.tunnel[2])
 		self.tunnel[3].setZ(-TUNNEL_SEGMENT_LENGTH)
